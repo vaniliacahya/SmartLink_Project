@@ -2,6 +2,8 @@ package mysql
 
 import (
 	"SmartLink_Project/config"
+	userdata "SmartLink_Project/features/users/data"
+
 	"fmt"
 	"log"
 
@@ -14,12 +16,12 @@ func InitDB(cfg *config.AppConfig) *gorm.DB {
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		log.Fatal("Cannot connect to DB")
+		log.Fatal("cannot connect to DB")
 	}
 
 	return db
 }
 
 func MigrateData(db *gorm.DB) {
-	db.AutoMigrate()
+	db.AutoMigrate(userdata.User{})
 }
