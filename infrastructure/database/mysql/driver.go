@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"SmartLink_Project/config"
+	layanandata "SmartLink_Project/features/layanan/data"
 	userdata "SmartLink_Project/features/users/data"
 
 	"fmt"
@@ -23,5 +24,5 @@ func InitDB(cfg *config.AppConfig) *gorm.DB {
 }
 
 func MigrateData(db *gorm.DB) {
-	db.AutoMigrate(userdata.User{})
+	db.AutoMigrate(userdata.User{}, layanandata.Layanan{})
 }

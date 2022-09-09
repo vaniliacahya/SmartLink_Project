@@ -8,6 +8,10 @@ import (
 	udata "SmartLink_Project/features/users/data"
 	udeliv "SmartLink_Project/features/users/delivery"
 	ucase "SmartLink_Project/features/users/usecase"
+
+	ldata "SmartLink_Project/features/layanan/data"
+	ldeliv "SmartLink_Project/features/layanan/delivery"
+	lcase "SmartLink_Project/features/layanan/usecase"
 )
 
 func InitFactory(e *echo.Echo, db *gorm.DB) {
@@ -17,4 +21,9 @@ func InitFactory(e *echo.Echo, db *gorm.DB) {
 	userCase := ucase.New(userData, validator)
 	userHandler := udeliv.New(userCase, userData)
 	udeliv.RouteUser(e, userHandler)
+
+	layananData := ldata.New(db)
+	layananCase := lcase.New(layananData, validator)
+	layananHandler := ldeliv.New(layananCase, layananData)
+	ldeliv.RouteLayanan(e, layananHandler)
 }

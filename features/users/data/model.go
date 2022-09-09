@@ -4,6 +4,7 @@ import "SmartLink_Project/domain"
 
 type User struct {
 	ID       int    `gorm:"autoIncrement"`
+	UserID   string `gorm:"type:varchar(15);column:user_id"`
 	Nama     string `gorm:"type:varchar(50)" json:"nama" form:"nama" validate:"required"`
 	Username string `gorm:"type:varchar(15)" json:"username" form:"username" validate:"required"`
 	Password string `gorm:"type:varchar(255)" json:"password" form:"password" validate:"required"`
@@ -24,6 +25,7 @@ func FromModel(data domain.User) User {
 func (u *User) ToModel() domain.User {
 	return domain.User{
 		ID:       int(u.ID),
+		UserID:   u.UserID,
 		Nama:     u.Nama,
 		Username: u.Username,
 		Password: u.Password,

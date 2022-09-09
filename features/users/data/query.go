@@ -2,6 +2,7 @@ package data
 
 import (
 	"SmartLink_Project/domain"
+	"fmt"
 	"log"
 
 	"gorm.io/gorm"
@@ -31,6 +32,20 @@ func (ud *userData) RegisterUserData(newuser domain.User) domain.User {
 		return domain.User{}
 	}
 
+	usercode := "USR00"
+	user.UserID = usercode + fmt.Sprint(user.ID)
+
+	resupdate := ud.db.Model(&user).Where("id = ?", user.ID).Update("user_id", user.UserID)
+
+	if resupdate.Error != nil {
+		log.Println("error update user")
+		return domain.User{}
+	}
+
+	if resupdate.RowsAffected < 1 {
+		log.Println("no rows effected")
+		return domain.User{}
+	}
 	return user.ToModel()
 }
 
