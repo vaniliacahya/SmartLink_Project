@@ -31,14 +31,14 @@ func (uuc *userUseCase) RegisterUser(newuser domain.User) (int, string) {
 		return 400, "error validasi"
 	}
 
-	if len(newuser.Nama) > 50 {
+	if len(user.Nama) > 50 {
 		log.Println("nama maksimum 50 karakter")
 		return 400, "nama maksimum 50 karakter"
 	}
 
 	usernameformat := regexp.MustCompile("^[A-Za-z0-9]*$")
-	cekusername := usernameformat.MatchString(newuser.Username)
-	if len(newuser.Username) > 15 {
+	cekusername := usernameformat.MatchString(user.Username)
+	if len(user.Username) > 15 {
 		log.Println("username maksimum 15 karakter")
 		return 400, "username maksimum 15 karakter"
 	} else if !cekusername {
@@ -47,8 +47,8 @@ func (uuc *userUseCase) RegisterUser(newuser domain.User) (int, string) {
 	}
 
 	teleponformat := regexp.MustCompile("^[0-9]*$")
-	cektelepon := teleponformat.MatchString(newuser.Telepon)
-	if len(newuser.Telepon) > 15 {
+	cektelepon := teleponformat.MatchString(user.Telepon)
+	if len(user.Telepon) > 15 {
 		log.Println("telepon maksimum 15 karakter")
 		return 400, "telepon maksimum 15 karakter"
 	} else if !cektelepon {
@@ -86,7 +86,7 @@ func (uuc *userUseCase) LoginUser(datalogin domain.User) (domain.User, int, stri
 		return domain.User{}, 400, ""
 	}
 
-	hashpw := uuc.userData.GetPasswordData(datalogin.Username)
+	hashpw := uuc.userData.GetPasswordData(userdata.Username)
 	if hashpw == "" {
 		log.Println("gagal ambil data")
 		return domain.User{}, 500, ""
@@ -98,7 +98,7 @@ func (uuc *userUseCase) LoginUser(datalogin domain.User) (domain.User, int, stri
 		return domain.User{}, 400, ""
 	}
 
-	token := common.GenerateToken(int(userdata.ID))
+	token := common.GenerateToken(userdata.ID, userdata.UserID)
 
 	return userdata, 200, token
 }
