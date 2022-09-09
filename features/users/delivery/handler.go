@@ -34,13 +34,13 @@ func (uh *userHandler) Register() echo.HandlerFunc {
 			})
 		}
 
-		code := uh.userUseCase.RegisterUser(newuser.ToModel())
+		code, message := uh.userUseCase.RegisterUser(newuser.ToModelRegis())
 
 		if code == 400 {
 			return c.JSON(http.StatusBadRequest, map[string]interface{}{
 				"code":    code,
 				"status":  "bad request",
-				"message": "gagal terdaftar",
+				"message": message,
 			})
 		}
 
@@ -48,15 +48,56 @@ func (uh *userHandler) Register() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 				"code":    code,
 				"status":  "internal server error",
-				"message": "gagal terdaftar",
+				"message": message,
 			})
 		}
 
 		return c.JSON(http.StatusOK, map[string]interface{}{
 			"code":    code,
 			"status":  "success",
-			"message": "berhasil terdaftar",
+			"message": message,
 		})
 
+	}
+}
+
+func (uh *userHandler) Login() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var loginuser LoginFormat
+		bind := c.Bind(&loginuser)
+
+		if bind != nil {
+			log.Println("can't bind")
+			return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+				"code":   500,
+				"status": "internal server error",
+				"data":   "{}",
+			})
+		}
+
+		datauser, code, token := uh.userUseCase.LoginUser(loginuser.ToModelLogin())
+		data := FromModelLogin(datauser, token)
+
+		if code == 400 {
+			return c.JSON(http.StatusBadRequest, map[string]interface{}{
+				"code":   code,
+				"status": "bad request",
+				"data":   data,
+			})
+		}
+
+		if code == 500 {
+			return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+				"code":   code,
+				"status": "internal server error",
+				"data":   data,
+			})
+		}
+
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"code":   code,
+			"status": "success",
+			"data":   data,
+		})
 	}
 }

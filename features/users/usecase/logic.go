@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"SmartLink_Project/domain"
+	"SmartLink_Project/features/common"
 	"SmartLink_Project/features/users/data"
 	"log"
 	"regexp"
@@ -22,58 +23,82 @@ func New(ud domain.UserData, v *validator.Validate) domain.UserUseCase {
 	}
 }
 
-func (uuc *userUseCase) RegisterUser(newuser domain.User) int {
+func (uuc *userUseCase) RegisterUser(newuser domain.User) (int, string) {
 	var user = data.FromModel(newuser)
 	validError := uuc.validate.Struct(user)
 	if validError != nil {
-		log.Println("validation error : ", validError)
-		return 400
+		log.Println("error validasi : ", validError)
+		return 400, "error validasi"
 	}
 
 	if len(newuser.Nama) > 50 {
-		log.Println("nama max 50 karakter")
-		return 400
-	} else if len(newuser.Username) > 15 {
-		log.Println("username max 50 karakter")
-		return 400
-	} else if len(newuser.Telepon) > 15 {
-		log.Println("telepon max 50 karakter")
-		return 400
+		log.Println("nama maksimum 50 karakter")
+		return 400, "nama maksimum 50 karakter"
 	}
 
 	usernameformat := regexp.MustCompile("^[A-Za-z0-9]*$")
 	cekusername := usernameformat.MatchString(newuser.Username)
-	if !cekusername {
-		log.Println("username only contain letter and number")
-		return 400
+	if len(newuser.Username) > 15 {
+		log.Println("username maksimum 15 karakter")
+		return 400, "username maksimum 15 karakter"
+	} else if !cekusername {
+		log.Println("username hanya boleh huruf dan angka")
+		return 400, "username hanya boleh huruf dan angka"
 	}
 
 	teleponformat := regexp.MustCompile("^[0-9]*$")
 	cektelepon := teleponformat.MatchString(newuser.Telepon)
-	if !cektelepon {
-		log.Println("telepon only contain number")
-		return 400
+	if len(newuser.Telepon) > 15 {
+		log.Println("telepon maksimum 15 karakter")
+		return 400, "telepon maksimum 15 karakter"
+	} else if !cektelepon {
+		log.Println("telepon hanya boleh angka")
+		return 400, "telepon hanya boleh angka"
 	}
 
 	duplicate := uuc.userData.CheckDuplicate(user.ToModel())
 	if duplicate {
-		log.Println("duplicated data")
-		return 400
+		log.Println("username sudah terpakai, silahkan pilih username yang lain")
+		return 400, "username sudah terpakai, silahkan pilih username yang lain"
 	}
 
 	hashed, errorhash := bcrypt.GenerateFromPassword([]byte(user.Password), 10)
 	if errorhash != nil {
-		log.Println("can't hash: ", errorhash)
-		return 500
+		log.Println("gagal hash password: ", errorhash)
+		return 500, "gagal hash password"
 	}
 
 	user.Password = string(hashed)
 
 	regis := uuc.userData.RegisterUserData(user.ToModel())
 	if regis.ID == 0 {
-		log.Println("failed insert data")
-		return 500
+		log.Println("gagal insert data")
+		return 500, "gagal insert data"
 	}
 
-	return 200
+	return 200, "berhasil terdaftar"
+}
+
+func (uuc *userUseCase) LoginUser(datalogin domain.User) (domain.User, int, string) {
+	userdata := uuc.userData.LoginUserData(datalogin)
+	if userdata.ID == 0 {
+		log.Println("gagal menemukan data")
+		return domain.User{}, 400, ""
+	}
+
+	hashpw := uuc.userData.GetPasswordData(datalogin.Username)
+	if hashpw == "" {
+		log.Println("gagal ambil data")
+		return domain.User{}, 500, ""
+	}
+
+	err := bcrypt.CompareHashAndPassword([]byte(hashpw), []byte(datalogin.Password))
+	if err != nil {
+		log.Println("password salah")
+		return domain.User{}, 400, ""
+	}
+
+	token := common.GenerateToken(int(userdata.ID))
+
+	return userdata, 200, token
 }
