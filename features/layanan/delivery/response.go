@@ -16,6 +16,6 @@ func FromModelLayanan(data domain.Layanan) DataLayanan {
 		Nama:      data.Nama,
 		Unit:      data.Unit,
 		Harga:     data.Harga,
-		UserID:    data.UserID,
+		UserID:    data.UserIDS,
 	}
 }

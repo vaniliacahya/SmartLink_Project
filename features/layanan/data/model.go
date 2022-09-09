@@ -8,7 +8,14 @@ type Layanan struct {
 	Nama      string  `gorm:"type:varchar(50)" json:"nama" form:"nama" validate:"required"`
 	Unit      string  `gorm:"type:varchar(3)" json:"unit" form:"unit" validate:"required"`
 	Harga     float64 `gorm:"type:double(10,2)" json:"harga" form:"harga" validate:"required"`
-	UserID    string
+	UserID    int
+	UserIDS   string
+	User      User `gorm:"foreignKey:UserID;references:ID;constraint:OnDelete:CASCADE"`
+}
+
+type User struct {
+	ID     int
+	UserID string
 }
 
 func FromModel(data domain.Layanan) Layanan {
@@ -18,6 +25,7 @@ func FromModel(data domain.Layanan) Layanan {
 	res.Unit = data.Unit
 	res.Harga = data.Harga
 	res.UserID = data.UserID
+	res.UserIDS = data.UserIDS
 
 	return res
 }
@@ -30,5 +38,6 @@ func (u *Layanan) ToModel() domain.Layanan {
 		Unit:      u.Unit,
 		Harga:     u.Harga,
 		UserID:    u.UserID,
+		UserIDS:   u.UserIDS,
 	}
 }

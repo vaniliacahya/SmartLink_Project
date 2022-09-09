@@ -8,6 +8,8 @@ type Layanan struct {
 	Nama      string
 	Unit      string
 	Harga     float64
+	UserID    int
+	UserIDS   string
 	User      UserLayanan
 }
 

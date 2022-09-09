@@ -54,7 +54,7 @@ func (lh *layananHandler) Add() echo.HandlerFunc {
 		layanan.Nama = newlayanan.Nama
 		layanan.Unit = newlayanan.Unit
 		layanan.Harga = Harga
-		layanan.UserID = common.ExtractData(c)
+		layanan.UserID, layanan.UserIDS = common.ExtractData(c)
 
 		code, datalayanan := lh.layananUseCase.AddLayanan(layanan.ToModelLayanan())
 		data := FromModelLayanan(datalayanan)

@@ -98,7 +98,7 @@ func (uuc *userUseCase) LoginUser(datalogin domain.User) (domain.User, int, stri
 		return domain.User{}, 400, ""
 	}
 
-	token := common.GenerateToken(userdata.UserID)
+	token := common.GenerateToken(userdata.ID, userdata.UserID)
 
 	return userdata, 200, token
 }
