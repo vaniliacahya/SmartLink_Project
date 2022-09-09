@@ -14,13 +14,17 @@ type User struct {
 
 type UserHandler interface {
 	Register() echo.HandlerFunc
+	Login() echo.HandlerFunc
 }
 
 type UserUseCase interface {
-	RegisterUser(newUser User) int
+	RegisterUser(newUser User) (int, string)
+	LoginUser(userData User) (User, int, string)
 }
 
 type UserData interface {
 	RegisterUserData(newUser User) User
 	CheckDuplicate(newUser User) bool
+	LoginUserData(userData User) User
+	GetPasswordData(username string) string
 }

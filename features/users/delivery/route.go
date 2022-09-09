@@ -9,4 +9,5 @@ import (
 
 func RouteUser(e *echo.Echo, user domain.UserHandler) {
 	e.POST("/register", user.Register())
+	e.POST("/login", user.Login())
 }
