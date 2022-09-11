@@ -34,7 +34,7 @@ $ go run main.go
 
 ## Open Api
 
-If you're interested in using our Open Api, this is an example of how to do so.
+If you're interested in using my Open Api, this is an example of how to do so.
 
 ```bash
 https://app.swaggerhub.com/apis-docs/vaniliacahya/SmartLink/1.0.0
