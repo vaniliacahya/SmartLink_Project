@@ -37,6 +37,7 @@ func (lh *layananHandler) Add() echo.HandlerFunc {
 			})
 		}
 
+		// ubah data harga dari string ke float
 		val := strings.Replace(newlayanan.Harga, ".", "", 1)
 		val2 := strings.Replace(val, ",", ".", 1)
 		Harga, err := strconv.ParseFloat(val2, 64)

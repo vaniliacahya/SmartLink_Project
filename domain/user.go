@@ -19,7 +19,7 @@ type UserHandler interface {
 }
 
 type UserUseCase interface {
-	RegisterUser(newUser User) (int, string)
+	RegisterUser(newUser User, cost int) (int, string)
 	LoginUser(userData User) (User, int, string)
 }
 
