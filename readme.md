@@ -18,7 +18,7 @@
 
 ## ⚙️ Installing and Running from Github
 
-installing and running the app from github repository <br>
+Installing and running the app from github repository <br>
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Golang](https://go.dev/dl/) installed on your computer. From your command line:
 
 ```bash
