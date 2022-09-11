@@ -1,0 +1,260 @@
+---
+openapi: 3.0.0
+info:
+  title: Smartlink
+  description: This is an API documentation for Smartlink Documentation
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/vaniliacahya/SmartLink/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: user
+- name: layanan
+paths:
+  /register:
+    post:
+      tags:
+      - user
+      summary: fitur bagi user untuk melakukan register
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModelRegister'
+            example:
+              nama: vanilia cahya
+              username: vanilia123
+              password: van2525
+              telepon: "081249690397"
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelRegister'
+              example:
+                code: 200
+                status: success
+                message: berhasil terdaftar
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelRegister'
+              example:
+                code: 400
+                status: bad request
+                message: username hanya boleh huruf dan angka
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelRegister'
+              example:
+                code: 500
+                status: internal server error
+                message: gagal insert data
+  /login:
+    post:
+      tags:
+      - user
+      summary: fitur bagi user untuk melakukan login
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModelLogin'
+            example:
+              username: vanilia123
+              password: van2525
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelLogin'
+              example:
+                code: 200
+                status: success
+                data:
+                  id: USR001
+                  nama: Hery Kartika
+                  username: hery
+                  token: $3gjk2UHkndlAubdDiHOjnD238Dijk
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelLogin'
+              example:
+                code: 400
+                status: bad request
+                data:
+                  id: ""
+                  nama: ""
+                  username: ""
+                  token: ""
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelLogin'
+              example:
+                code: 500
+                status: internal server error
+                data:
+                  id: ""
+                  nama: ""
+                  username: ""
+                  token: ""
+  /layanan:
+    post:
+      tags:
+      - layanan
+      summary: fitur bagi user untuk nemambah layanan
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModelLayanan'
+            example:
+              nama: Cuci Kering
+              unit: kg
+              harga: 20.000,01
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelLayanan'
+              example:
+                code: 200
+                status: success
+                data:
+                  id: LYN001
+                  nama: Cuci Kering
+                  unit: kg
+                  harga: 10000
+                  user_id: USR001
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelLayanan'
+              example:
+                code: 400
+                status: bad request
+                data:
+                  id: ""
+                  nama: ""
+                  unit: ""
+                  harga: 0
+                  user_id: ""
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelLayanan'
+              example:
+                code: 500
+                status: internal server error
+                data:
+                  id: ""
+                  nama: ""
+                  unit: ""
+                  harga: 0
+                  user_id: ""
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    ModelRegister:
+      required:
+      - nama
+      - password
+      - telepon
+      - username
+      type: object
+      properties:
+        nama:
+          maximum: 50
+          type: string
+          example: Vanilia Cahya Nugroho
+        username:
+          maximum: 15
+          type: string
+          example: vanilia24
+        password:
+          type: string
+          example: van123
+        telepon:
+          maximum: 15
+          type: string
+          example: "081249690397"
+    ModelLogin:
+      required:
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          maximum: 15
+          type: string
+          example: vanilia24
+        password:
+          type: string
+          example: van123
+    ModelLayanan:
+      required:
+      - harga
+      - nama
+      - unit
+      type: object
+      properties:
+        nama:
+          maximum: 50
+          type: string
+          example: Cuci Kering
+        unit:
+          type: string
+          example: kg, pcs, cm, m2
+        harga:
+          type: string
+          example: 20.000,01
+  responses:
+    "200":
+      description: success
+      content:
+        application/json:
+          schema:
+            type: string
+          example: '{"code":200,"status":"success","message":"berhasil terdaftar","data":{"id":"LYN001","nama":"Cuci Kering","unit":"kg","harga":10000,"user_id":"USR001"}}'
+    "400":
+      description: bad request
+      content:
+        application/json:
+          schema:
+            type: string
+          example: '{"code":400,"status":"bad request","message":"username hanya boleh huruf dan angka"}'
+    "500":
+      description: internal server error
+      content:
+        application/json:
+          schema:
+            type: string
+          example: '{"code":500,"status":"internal server error","message":"gagal insert data"}'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: JWT Authentication
+      scheme: bearer
+      bearerFormat: JWT
