@@ -40,52 +40,31 @@ If you're interested in using our Open Api, this is an example of how to do so.
 https://app.swaggerhub.com/apis-docs/vaniliacahya/SmartLink/1.0.0
 ```
 
-<div>
-      <details>
-<summary> Users</summary>
-  
-  <!---
-  | Command | Description |
-| --- | --- |
-  --->
-  
+
+- Users
 In users, there is a feature to register and login for users
- 
-<div>
   
 | Feature User | Endpoint | Param | JWT Token | Function |
 | --- | --- | --- | --- | --- |
 | `POST` | /register | - | NO | Feature for users to register their account |
 | `POST` | /login | - | NO | Feature for users to login with their registered account |
 
-</details>
 
-<div>
-      <details>
-<summary> Layanan</summary>
-  
-  <!---
-  | Command | Description |
-| --- | --- |
-  --->
-  
+- Layanan
 In layanan, there is a feature to add services
- 
-<div>
   
 | Feature Layanan | Endpoint | Param | JWT Token | Function |
 | --- | --- | --- | --- | --- |
-| `POST` | /layanan | - | YES | Feature for users to add services |
-
-</details>   
+| `POST` | /layanan | - | YES | Feature for users to add services | 
    
+
 ## Unit Test
 
 <img src="testing_coverage.png">
 
 ## Authors
 
-- Vanilia Cahya Nugroho
+Vanilia Cahya Nugroho
        
   Reach me:
 
