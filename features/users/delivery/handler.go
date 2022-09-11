@@ -24,6 +24,7 @@ func (uh *userHandler) Register() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var newuser UserFormat
 		bind := c.Bind(&newuser)
+		cost := 10
 
 		if bind != nil {
 			log.Println("can't bind")
@@ -34,7 +35,7 @@ func (uh *userHandler) Register() echo.HandlerFunc {
 			})
 		}
 
-		code, message := uh.userUseCase.RegisterUser(newuser.ToModelRegis())
+		code, message := uh.userUseCase.RegisterUser(newuser.ToModelRegis(), cost)
 
 		if code == 400 {
 			return c.JSON(http.StatusBadRequest, map[string]interface{}{

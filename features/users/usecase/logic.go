@@ -23,7 +23,7 @@ func New(ud domain.UserData, v *validator.Validate) domain.UserUseCase {
 	}
 }
 
-func (uuc *userUseCase) RegisterUser(newuser domain.User) (int, string) {
+func (uuc *userUseCase) RegisterUser(newuser domain.User, cost int) (int, string) {
 	var user = data.FromModel(newuser)
 	validError := uuc.validate.Struct(user)
 	if validError != nil {
@@ -62,7 +62,7 @@ func (uuc *userUseCase) RegisterUser(newuser domain.User) (int, string) {
 		return 400, "username sudah terpakai, silahkan pilih username yang lain"
 	}
 
-	hashed, errorhash := bcrypt.GenerateFromPassword([]byte(user.Password), 10)
+	hashed, errorhash := bcrypt.GenerateFromPassword([]byte(user.Password), cost)
 	if errorhash != nil {
 		log.Println("gagal hash password: ", errorhash)
 		return 500, "gagal hash password"
