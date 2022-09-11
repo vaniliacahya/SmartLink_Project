@@ -1,41 +1,35 @@
-# SmartLink Project
-
 <!-- ABOUT THE PROJECT -->
 
-<h1>
-<p align="center">
-  <img src="https://images.glints.com/unsafe/glints-dashboard.s3.amazonaws.com/company-logo/e3f9606827ae5010a7d3415c2c623d9e.png&w=640&q=75" alt="Logo" height="60">
-  </a>
+<h1 align="center">
+  SmartLink Project
+  <br>
 </h1>
 
-## About The Project
-
-SmartLink Project is a backend test by SmartLink. 
-
-</details>   
+<h4 align="center"> SmartLink Project is a Laundry app, users can login, register and add services </h4>
        
-### Build App & Database
-![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
-![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+## Build App & Database
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
-![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
-![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
-## Run Locally
+## ⚙️ Installing and Running from Github
 
-Clone the project
-
-```bash
-  git clone https://github.com/vaniliacahya/SmartLink_Project.git
-```
-
-Go to the project directory
+installing and running the app from github repository <br>
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Golang](https://go.dev/dl/) installed on your computer. From your command line:
 
 ```bash
-  cd SmartLink_Project
+# Clone this repository
+$ git clone https://github.com/vaniliacahya/SmartLink_Project.git
+
+# Go into the repository
+$ cd SmartLink_Project
+
+# Run the app
+$ go run main.go
 ```
 
 ## Open Api
@@ -61,8 +55,8 @@ In users, there is a feature to register and login for users
   
 | Feature User | Endpoint | Param | JWT Token | Function |
 | --- | --- | --- | --- | --- |
-| POST | /register | - | NO | Feature for users to register their account |
-| POST | /login | - | NO | Feature for users to login with their registered account |
+| `POST` | /register | - | NO | Feature for users to register their account |
+| `POST` | /login | - | NO | Feature for users to login with their registered account |
 
 </details>
 
@@ -81,7 +75,7 @@ In layanan, there is a feature to add services
   
 | Feature Layanan | Endpoint | Param | JWT Token | Function |
 | --- | --- | --- | --- | --- |
-| POST | /layanan | - | YES | Feature for users to add services |
+| `POST` | /layanan | - | YES | Feature for users to add services |
 
 </details>   
    
@@ -89,13 +83,13 @@ In layanan, there is a feature to add services
 
 <img src="testing_coverage.png">
 
-## Authors 👑
+## Authors
 
 - Vanilia Cahya Nugroho
        
   Reach me:
 
-  [![Gmail](https://img.shields.io/badge/vanilia.cahya23@gmail.com-EA4335.svg?style=for-the-badge&logo=gmail&logoColor=white)]
+  ![Gmail](https://img.shields.io/badge/vanilia.cahya23@gmail.com-EA4335.svg?style=for-the-badge&logo=gmail&logoColor=white)
   [![GitHub](https://img.shields.io/badge/vaniliacahya-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/vaniliacahya)
   [![Linkedin](https://img.shields.io/badge/vaniliacahya-0A66C2.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vaniliacahya/)
   [![WhatsApp](https://img.shields.io/badge/vaniliacahya-25D366.svg?style=for-the-badge&logo=whatsapp&logoColor=white)](https://api.whatsapp.com/send/?phone=%2B6281249690397&text=Hello&type=phone_number&app_absent=0)
