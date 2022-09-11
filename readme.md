@@ -44,7 +44,7 @@ https://app.swaggerhub.com/apis-docs/vaniliacahya/SmartLink/1.0.0
 - Users <br>
 In users, there is a feature to register and login for users
   
-| Feature User | Endpoint | Param | JWT Token | Function |
+| User | Endpoint | Param | JWT Token | Function |
 | --- | --- | --- | --- | --- |
 | `POST` | /register | - | NO | Feature for users to register their account |
 | `POST` | /login | - | NO | Feature for users to login with their registered account |
@@ -53,7 +53,7 @@ In users, there is a feature to register and login for users
 - Layanan <br>
 In layanan, there is a feature to add services
   
-| Feature Layanan | Endpoint | Param | JWT Token | Function |
+| Layanan | Endpoint | Param | JWT Token | Function |
 | --- | --- | --- | --- | --- |
 | `POST` | /layanan | - | YES | Feature for users to add services | 
    
